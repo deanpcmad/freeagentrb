@@ -23,6 +23,7 @@ module FreeAgent
   autoload :TimeslipsResource, "free_agent/resources/timeslips"
   autoload :UsersResource, "free_agent/resources/users"
   autoload :AttachmentsResource, "free_agent/resources/attachments"
+  autoload :InvoicesResource, "free_agent/resources/invoices"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -34,5 +35,6 @@ module FreeAgent
   autoload :Timeslip, "free_agent/objects/timeslip"
   autoload :User, "free_agent/objects/user"
   autoload :Attachment, "free_agent/objects/attachment"
+  autoload :Invoice, "free_agent/objects/invoice"
 
 end
