@@ -3,6 +3,7 @@ PATH
   specs:
     freeagentrb (0.1.0)
       faraday (~> 1.7)
+      faraday-multipart (~> 1.0)
       faraday_middleware (~> 1.1)
 
 GEM

@@ -6,9 +6,9 @@ module FreeAgent
       body = response.body
 
       if key.is_a?(String)
-        data  = body[key].map { |attrs| type.new(attrs) }
+        data = body[key].map { |attrs| type.new(attrs) }
       else
-        data  = body.map { |attrs| type.new(attrs) }
+        data = body.map { |attrs| type.new(attrs) }
       end
 
       total = response.headers["X-total-count"]
