@@ -18,6 +18,10 @@ module FreeAgent
       CompanyResource.new(self)
     end
 
+    def contacts
+      ContactsResource.new(self)
+    end
+
     def bank_accounts
       BankAccountsResource.new(self)
     end
