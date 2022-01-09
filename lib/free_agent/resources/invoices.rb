@@ -40,7 +40,7 @@ module FreeAgent
     end
 
     def update(id:, **params)
-      response = put_request("invoices/#{id}", body: params)
+      response = put_request("invoices/#{id}", body: {invoice: params})
       Invoice.new(response.body["invoice"]) if response.success?
     end
 
