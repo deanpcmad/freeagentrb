@@ -24,5 +24,10 @@ module FreeAgent
       BankAccount.new(response.body["bank_account"]) if response.success?
     end
 
+    def delete(id:)
+      response = delete_request("bank_accounts/#{id}")
+      response.success?
+    end
+
   end
 end
