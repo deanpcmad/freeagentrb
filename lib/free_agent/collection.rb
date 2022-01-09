@@ -2,13 +2,20 @@ module FreeAgent
   class Collection
     attr_reader :data, :total
 
-    def self.from_response(response, type:)
+    def self.from_response(response, type:, key: nil)
       body = response.body
 
+      if key.is_a?(String)
+        data  = body[key].map { |attrs| type.new(attrs) }
+      else
+        data  = body.map { |attrs| type.new(attrs) }
+      end
+
+      total = response.headers["X-total-count"]
+
       new(
-        data: body.map { |attrs| type.new(attrs) },
-        total: body.count,
-        # cursor: body.dig("pagination", "cursor")
+        data: data,
+        total: total
       )
     end
 

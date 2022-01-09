@@ -16,7 +16,7 @@ require 'dotenv/load'
 
 # @access_token = Igdb::AccessToken.new(client_id: ENV["CLIENT_ID"], client_secret: ENV["CLIENT_SECRET"])
 
-@client = FreeAgent::Client.new(access_token: ENV["ACCESS_TOKEN"], sandbox: false)
+@client = FreeAgent::Client.new(access_token: ENV["ACCESS_TOKEN"], sandbox: true)
 
 require "irb"
 IRB.start(__FILE__)
