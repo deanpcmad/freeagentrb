@@ -7,7 +7,8 @@ module FreeAgent
 
       # The FreeAgent API doesn't send an ID so generate it from the URL 
       if attributes["url"]
-        self.id = attributes["url"].split("/").last
+        number = attributes["url"].match(/\d{2,}/)
+        self.id = number[0] unless number.nil?
       end
     end
 
