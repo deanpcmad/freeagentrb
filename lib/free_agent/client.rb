@@ -14,6 +14,10 @@ module FreeAgent
       @stubs = stubs
     end
 
+    def company
+      CompanyResource.new(self)
+    end
+
     def bank_accounts
       BankAccountsResource.new(self)
     end
