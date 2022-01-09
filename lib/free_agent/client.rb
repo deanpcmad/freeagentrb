@@ -70,6 +70,10 @@ module FreeAgent
       CreditNotesResource.new(self)
     end
 
+    def bills
+      BillsResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

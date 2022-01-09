@@ -27,6 +27,7 @@ module FreeAgent
   autoload :EstimatesResource, "free_agent/resources/estimates"
   autoload :EstimateItemsResource, "free_agent/resources/estimate_items"
   autoload :CreditNotesResource, "free_agent/resources/credit_notes"
+  autoload :BillsResource, "free_agent/resources/bills"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -42,5 +43,6 @@ module FreeAgent
   autoload :Estimate, "free_agent/objects/estimate"
   autoload :EstimateItem, "free_agent/objects/estimate_item"
   autoload :CreditNote, "free_agent/objects/credit_note"
+  autoload :Bill, "free_agent/objects/bill"
 
 end
