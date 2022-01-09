@@ -41,7 +41,11 @@ module FreeAgent
       when 409
         raise Error, "Error 409: Your request was a conflict. '#{response.body["errors"]["error"]["message"]}'"
       when 422
-        raise Error, "Error 422: '#{response.body["errors"]["error"]["message"]}'"
+        if response.body["errors"].is_a? Array
+          raise Error, "Error 422: Unprocessable Entity. '#{response.body["errors"].map {|e| e['message']}.join(" & ")}'"
+        else
+          raise Error, "Error 422: Unprocessable Entity. '#{response.body["errors"]["error"]["message"]}'"
+        end
       when 429
         raise Error, "Error 429: Your request exceeded the API rate limit. '#{response.body["errors"]["error"]["message"]}'"
       when 500

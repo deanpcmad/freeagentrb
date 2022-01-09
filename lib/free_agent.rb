@@ -15,8 +15,10 @@ module FreeAgent
 
   autoload :BankAccountsResource, "free_agent/resources/bank_accounts"
   autoload :BankTransactionsResource, "free_agent/resources/bank_transactions"
+  autoload :BankTransactionExplanationsResource, "free_agent/resources/bank_transaction_explanations"
 
   autoload :BankAccount, "free_agent/objects/bank_account"
   autoload :BankTransaction, "free_agent/objects/bank_transaction"
+  autoload :BankTransactionExplanation, "free_agent/objects/bank_transaction_explanation"
 
 end
