@@ -58,6 +58,14 @@ module FreeAgent
       InvoicesResource.new(self)
     end
 
+    def estimates
+      EstimatesResource.new(self)
+    end
+
+    def estimate_items
+      EstimateItemsResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

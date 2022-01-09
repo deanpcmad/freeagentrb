@@ -24,6 +24,8 @@ module FreeAgent
   autoload :UsersResource, "free_agent/resources/users"
   autoload :AttachmentsResource, "free_agent/resources/attachments"
   autoload :InvoicesResource, "free_agent/resources/invoices"
+  autoload :EstimatesResource, "free_agent/resources/estimates"
+  autoload :EstimateItemsResource, "free_agent/resources/estimate_items"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -36,5 +38,7 @@ module FreeAgent
   autoload :User, "free_agent/objects/user"
   autoload :Attachment, "free_agent/objects/attachment"
   autoload :Invoice, "free_agent/objects/invoice"
+  autoload :Estimate, "free_agent/objects/estimate"
+  autoload :EstimateItem, "free_agent/objects/estimate_item"
 
 end
