@@ -21,6 +21,7 @@ module FreeAgent
   autoload :ProjectsResource, "free_agent/resources/projects"
   autoload :TasksResource, "free_agent/resources/tasks"
   autoload :TimeslipsResource, "free_agent/resources/timeslips"
+  autoload :UsersResource, "free_agent/resources/users"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -30,5 +31,6 @@ module FreeAgent
   autoload :Project, "free_agent/objects/project"
   autoload :Task, "free_agent/objects/task"
   autoload :Timeslip, "free_agent/objects/timeslip"
+  autoload :User, "free_agent/objects/user"
 
 end
