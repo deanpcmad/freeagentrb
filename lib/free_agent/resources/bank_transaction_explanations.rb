@@ -13,12 +13,11 @@ module FreeAgent
       BankTransactionExplanation.new(response.body["bank_transaction_explanation"])
     end
 
-    # Commented out as it needs more work
-    # def create(**params)
-    #   raise "bank_account or bank_transaction is required" unless !params[:bank_account].nil? || !params[:bank_transaction].nil?
-    #   response = post_request("bank_transaction_explanations", body: params)
-    #   response.body
-    # end
+    def create(**params)
+      raise "bank_account or bank_transaction is required" unless !params[:bank_account].nil? || !params[:bank_transaction].nil?
+      response = post_request("bank_transaction_explanations", body: params)
+      BankTransactionExplanation.new(response.body["bank_transaction_explanation"])
+    end
 
     def delete(id:)
       response = delete_request("bank_transaction_explanations/#{id}")
