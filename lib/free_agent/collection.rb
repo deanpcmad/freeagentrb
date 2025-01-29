@@ -23,5 +23,21 @@ module FreeAgent
       @data = data
       @total = total
     end
+
+    def count
+      data.count
+    end
+
+    def each(&block)
+      data.each(&block)
+    end
+
+    def first
+      data.first
+    end
+
+    def last
+      data.last
+    end
   end
 end
