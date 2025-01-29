@@ -25,7 +25,7 @@ module FreeAgent
     def bank_accounts
       BankAccountsResource.new(self)
     end
-    
+
     def bank_transactions
       BankTransactionsResource.new(self)
     end
@@ -79,9 +79,7 @@ module FreeAgent
       @connection ||= Faraday.new(url) do |conn|
         conn.request :authorization, :Bearer, access_token
         conn.request :json
-
-        conn.response :dates
-        conn.response :json, content_type: "application/json"
+        conn.response :json
 
         conn.adapter adapter, @stubs
       end

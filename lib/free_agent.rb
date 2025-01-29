@@ -1,5 +1,4 @@
 require "faraday"
-require "faraday_middleware"
 require "faraday/multipart"
 require "json"
 
