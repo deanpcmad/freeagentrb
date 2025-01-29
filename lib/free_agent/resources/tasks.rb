@@ -1,6 +1,5 @@
 module FreeAgent
   class TasksResource < Resource
-
     def list(**params)
       response = get_request("tasks", params: params)
       Collection.from_response(response, type: Task, key: "tasks")
@@ -17,7 +16,7 @@ module FreeAgent
     end
 
     def create(project:, name:,  **params)
-      attributes = {project: project, name: name}
+      attributes = { project: project, name: name }
 
       response = post_request("tasks", body: attributes.merge(params))
       Task.new(response.body["task"]) if response.success?
@@ -32,6 +31,5 @@ module FreeAgent
       response = delete_request("tasks/#{id}")
       response.success?
     end
-
   end
 end

@@ -1,8 +1,7 @@
 module FreeAgent
   class BankTransactionExplanationsResource < Resource
-
     def list(bank_account:, **params)
-      attributes = {bank_account: bank_account}
+      attributes = { bank_account: bank_account }
 
       response = get_request("bank_transaction_explanations", params: attributes.merge(params))
       Collection.from_response(response, type: BankTransactionExplanation, key: "bank_transaction_explanations")
@@ -23,6 +22,5 @@ module FreeAgent
       response = delete_request("bank_transaction_explanations/#{id}")
       response.success?
     end
-
   end
 end

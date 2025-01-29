@@ -1,6 +1,5 @@
 module FreeAgent
   class TimeslipsResource < Resource
-
     def list(**params)
       response = get_request("timeslips", params: params)
       Collection.from_response(response, type: Timeslip, key: "timeslips")
@@ -27,7 +26,7 @@ module FreeAgent
     end
 
     def create(task:, user:, project:, dated_on:, hours:,  **params)
-      attributes = {task: task, user: user, project: project, dated_on: dated_on, hours: hours}
+      attributes = { task: task, user: user, project: project, dated_on: dated_on, hours: hours }
 
       response = post_request("timeslips", body: attributes.merge(params))
       Timeslip.new(response.body["timeslip"]) if response.success?
@@ -42,6 +41,5 @@ module FreeAgent
       response = delete_request("timeslips/#{id}")
       response.success?
     end
-
   end
 end

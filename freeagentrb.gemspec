@@ -5,8 +5,8 @@ require_relative "lib/free_agent/version"
 Gem::Specification.new do |spec|
   spec.name = "freeagentrb"
   spec.version = FreeAgent::VERSION
-  spec.authors = ["Dean Perry"]
-  spec.email = ["dean@deanpcmad.com"]
+  spec.authors = [ "Dean Perry" ]
+  spec.email = [ "dean@deanpcmad.com" ]
 
   spec.summary = "Ruby library for the FreeAgent v2 API"
   spec.homepage = "https://deanpcmad.com"
@@ -24,7 +24,7 @@ Gem::Specification.new do |spec|
       (f == __FILE__) || f.match(%r{\A(?:(?:test|spec|features)/|\.(?:git|travis|circleci)|appveyor)})
     end
   end
-  spec.require_paths = ["lib"]
+  spec.require_paths = [ "lib" ]
 
   spec.add_dependency "faraday", "~> 2.11"
   spec.add_dependency "faraday-multipart", "~> 1.0"

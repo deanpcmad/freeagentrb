@@ -1,8 +1,7 @@
 module FreeAgent
   class EstimateItemsResource < Resource
-
     def create(estimate:, **params)
-      attributes = {estimate: estimate}
+      attributes = { estimate: estimate }
 
       response = post_request("estimate_items", body: attributes.merge(params))
       EstimateItem.new(response.body["estimate_item"]) if response.success?
@@ -17,6 +16,5 @@ module FreeAgent
       response = delete_request("estimate_items/#{id}")
       response.success?
     end
-
   end
 end

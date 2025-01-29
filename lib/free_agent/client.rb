@@ -93,6 +93,5 @@ module FreeAgent
         conn.request :multipart
       end
     end
-
   end
 end

@@ -1,6 +1,5 @@
 module FreeAgent
   class ContactsResource < Resource
-
     def list(**params)
       response = get_request("contacts", params: params)
       Collection.from_response(response, type: Contact, key: "contacts")
@@ -27,6 +26,5 @@ module FreeAgent
       response = delete_request("contacts/#{id}")
       response.success?
     end
-
   end
 end

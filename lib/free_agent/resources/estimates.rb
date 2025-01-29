@@ -1,6 +1,5 @@
 module FreeAgent
   class EstimatesResource < Resource
-
     def list(**params)
       response = get_request("estimates", params: params)
       Collection.from_response(response, type: Estimate, key: "estimates")
@@ -33,9 +32,9 @@ module FreeAgent
     end
 
     def create(contact:, dated_on:, currency:, reference:, status: "Draft", estimate_type: "Estimate", **params)
-      attributes = {contact: contact, dated_on: dated_on, status: status, estimate_type: estimate_type, currency: currency, reference: reference}
+      attributes = { contact: contact, dated_on: dated_on, status: status, estimate_type: estimate_type, currency: currency, reference: reference }
 
-      response = post_request("estimates", body: {estimate: attributes.merge(params)})
+      response = post_request("estimates", body: { estimate: attributes.merge(params) })
       Estimate.new(response.body["estimate"]) if response.success?
     end
 
@@ -50,8 +49,8 @@ module FreeAgent
     end
 
     def email(id:, to:, **params)
-      attributes = {to: to}
-      response = post_request("estimates/#{id}/send_email", body: {estimate: {email: attributes.merge(params)}})
+      attributes = { to: to }
+      response = post_request("estimates/#{id}/send_email", body: { estimate: { email: attributes.merge(params) } })
       response.success?
     end
 
@@ -74,6 +73,5 @@ module FreeAgent
       response = put_request("estimates/#{id}/transitions/mark_as_rejected", body: {})
       response.success?
     end
-
   end
 end

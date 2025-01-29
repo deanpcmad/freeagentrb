@@ -5,6 +5,10 @@ require "json"
 require_relative "free_agent/version"
 
 module FreeAgent
+  autoload :Error, "free_agent/error"
+  autoload :Errors, "free_agent/error_generator"
+  autoload :ErrorGenerator, "free_agent/error_generator"
+  autoload :ErrorFactory, "free_agent/error_generator"
 
   autoload :Client, "free_agent/client"
   autoload :Collection, "free_agent/collection"
@@ -43,5 +47,4 @@ module FreeAgent
   autoload :EstimateItem, "free_agent/objects/estimate_item"
   autoload :CreditNote, "free_agent/objects/credit_note"
   autoload :Bill, "free_agent/objects/bill"
-
 end

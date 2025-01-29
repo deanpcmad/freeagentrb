@@ -1,6 +1,5 @@
 module FreeAgent
   class BankAccountsResource < Resource
-
     def list(view: nil)
       url = view.nil? ? "bank_accounts" : "bank_accounts?view=#{view}"
 
@@ -14,7 +13,7 @@ module FreeAgent
     end
 
     def create(type:, name:, opening_balance:, **params)
-      attributes = {type: type, name: name, opening_balance: opening_balance}
+      attributes = { type: type, name: name, opening_balance: opening_balance }
       response = post_request("bank_accounts", body: attributes.merge(params))
       BankAccount.new(response.body["bank_account"]) if response.success?
     end
@@ -28,6 +27,5 @@ module FreeAgent
       response = delete_request("bank_accounts/#{id}")
       response.success?
     end
-
   end
 end

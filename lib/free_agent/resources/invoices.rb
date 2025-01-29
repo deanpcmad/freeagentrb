@@ -1,6 +1,5 @@
 module FreeAgent
   class InvoicesResource < Resource
-
     def list(**params)
       response = get_request("invoices", params: params)
       Collection.from_response(response, type: Invoice, key: "invoices")
@@ -28,9 +27,9 @@ module FreeAgent
     end
 
     def create(contact:, dated_on:, payment_terms_in_days: 0, **params)
-      attributes = {contact: contact, dated_on: dated_on, payment_terms_in_days: payment_terms_in_days}
+      attributes = { contact: contact, dated_on: dated_on, payment_terms_in_days: payment_terms_in_days }
 
-      response = post_request("invoices", body: {invoice: attributes.merge(params)})
+      response = post_request("invoices", body: { invoice: attributes.merge(params) })
       Invoice.new(response.body["invoice"]) if response.success?
     end
 
@@ -40,7 +39,7 @@ module FreeAgent
     end
 
     def update(id:, **params)
-      response = put_request("invoices/#{id}", body: {invoice: params})
+      response = put_request("invoices/#{id}", body: { invoice: params })
       Invoice.new(response.body["invoice"]) if response.success?
     end
 
@@ -50,8 +49,8 @@ module FreeAgent
     end
 
     def email(id:, to:, **params)
-      attributes = {to: to}
-      response = post_request("invoices/#{id}/send_email", body: {invoice: {email: attributes.merge(params)}})
+      attributes = { to: to }
+      response = post_request("invoices/#{id}/send_email", body: { invoice: { email: attributes.merge(params) } })
       response.success?
     end
 
@@ -84,6 +83,5 @@ module FreeAgent
       response = post_request("invoices/#{id}/direct_debit", body: {})
       response.success?
     end
-
   end
 end

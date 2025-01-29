@@ -1,6 +1,5 @@
 module FreeAgent
   class CreditNotesResource < Resource
-
     def list(**params)
       response = get_request("credit_notes", params: params)
       Collection.from_response(response, type: CreditNote, key: "credit_notes")
@@ -28,9 +27,9 @@ module FreeAgent
     end
 
     def create(contact:, dated_on:, payment_terms_in_days: 0, **params)
-      attributes = {contact: contact, dated_on: dated_on, payment_terms_in_days: payment_terms_in_days}
+      attributes = { contact: contact, dated_on: dated_on, payment_terms_in_days: payment_terms_in_days }
 
-      response = post_request("credit_notes", body: {credit_note: attributes.merge(params)})
+      response = post_request("credit_notes", body: { credit_note: attributes.merge(params) })
       CreditNote.new(response.body["credit_note"]) if response.success?
     end
 
@@ -40,7 +39,7 @@ module FreeAgent
     # end
 
     def update(id:, **params)
-      response = put_request("credit_notes/#{id}", body: {credit_note: params})
+      response = put_request("credit_notes/#{id}", body: { credit_note: params })
       CreditNote.new(response.body["credit_note"]) if response.success?
     end
 
@@ -50,8 +49,8 @@ module FreeAgent
     end
 
     def email(id:, to:, **params)
-      attributes = {to: to}
-      response = post_request("credit_notes/#{id}/send_email", body: {credit_note: {email: attributes.merge(params)}})
+      attributes = { to: to }
+      response = post_request("credit_notes/#{id}/send_email", body: { credit_note: { email: attributes.merge(params) } })
       response.success?
     end
 
@@ -69,6 +68,5 @@ module FreeAgent
       response = put_request("credit_notes/#{id}/transitions/mark_as_cancelled", body: {})
       response.success?
     end
-
   end
 end

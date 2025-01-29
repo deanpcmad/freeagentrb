@@ -1,6 +1,5 @@
 module FreeAgent
   class BillsResource < Resource
-
     def list(**params)
       response = get_request("bills", params: params)
       Collection.from_response(response, type: Bill, key: "bills")
@@ -22,14 +21,14 @@ module FreeAgent
     end
 
     def create(contact:, dated_on:, due_on:, reference:, bill_items:, **params)
-      attributes = {contact: contact, dated_on: dated_on, due_on: due_on, reference: reference, bill_items: bill_items}
+      attributes = { contact: contact, dated_on: dated_on, due_on: due_on, reference: reference, bill_items: bill_items }
 
-      response = post_request("bills", body: {bill: attributes.merge(params)})
+      response = post_request("bills", body: { bill: attributes.merge(params) })
       Bill.new(response.body["bill"]) if response.success?
     end
 
     def update(id:, **params)
-      response = put_request("bills/#{id}", body: {bill: params})
+      response = put_request("bills/#{id}", body: { bill: params })
       Bill.new(response.body["bill"]) if response.success?
     end
 
@@ -37,6 +36,5 @@ module FreeAgent
       response = delete_request("bills/#{id}")
       response.success?
     end
-
   end
 end
