@@ -2,17 +2,17 @@ module FreeAgent
   class CreditNotesResource < Resource
     def list(**params)
       response = get_request("credit_notes", params: params)
-      Collection.from_response(response, type: CreditNote, key: "credit_notes")
+      Collection.from_response(response, type: CreditNote)
     end
 
     def list_for_contact(contact:, **params)
       response = get_request("credit_notes?contact=#{contact}", params: params)
-      Collection.from_response(response, type: CreditNote, key: "credit_notes")
+      Collection.from_response(response, type: CreditNote)
     end
 
     def list_for_project(project:, **params)
       response = get_request("credit_notes?project=#{project}", params: params)
-      Collection.from_response(response, type: CreditNote, key: "credit_notes")
+      Collection.from_response(response, type: CreditNote)
     end
 
     def retrieve(id:)

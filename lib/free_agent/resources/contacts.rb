@@ -2,7 +2,7 @@ module FreeAgent
   class ContactsResource < Resource
     def list(**params)
       response = get_request("contacts", params: params)
-      Collection.from_response(response, type: Contact, key: "contacts")
+      Collection.from_response(response, type: Contact)
     end
 
     def retrieve(id:)

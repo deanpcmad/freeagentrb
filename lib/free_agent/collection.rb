@@ -1,27 +1,30 @@
 module FreeAgent
   class Collection
-    attr_reader :data, :total
+    attr_reader :data, :total, :pagination
 
-    def self.from_response(response, type:, key: nil)
+    def self.from_response(response, type:)
       body = response.body
 
-      if key.is_a?(String)
-        data = body[key].map { |attrs| type.new(attrs) }
-      else
-        data = body.map { |attrs| type.new(attrs) }
-      end
+      data = body.values.first.map { |attrs| type.new(attrs) }
 
       total = response.headers["X-total-count"]
 
+      pagination = response.headers["Link"]&.split(", ")&.map do |link|
+        url, rel = link.match(/<(.+)>; rel='(.+)'/)&.captures
+        [ rel, url ]
+      end&.to_h
+
       new(
         data: data,
-        total: total
+        total: total,
+        pagination: pagination
       )
     end
 
-    def initialize(data:, total:)
+    def initialize(data:, total:, pagination: nil)
       @data = data
       @total = total
+      @pagination = pagination
     end
 
     def count

@@ -2,22 +2,22 @@ module FreeAgent
   class TimeslipsResource < Resource
     def list(**params)
       response = get_request("timeslips", params: params)
-      Collection.from_response(response, type: Timeslip, key: "timeslips")
+      Collection.from_response(response, type: Timeslip)
     end
 
     def list_for_user(user:, **params)
       response = get_request("timeslips?user=#{user}", params: params)
-      Collection.from_response(response, type: Timeslip, key: "timeslips")
+      Collection.from_response(response, type: Timeslip)
     end
 
     def list_for_task(task:, **params)
       response = get_request("timeslips?task=#{task}", params: params)
-      Collection.from_response(response, type: Timeslip, key: "timeslips")
+      Collection.from_response(response, type: Timeslip)
     end
 
     def list_for_project(project:, **params)
       response = get_request("timeslips?project=#{project}", params: params)
-      Collection.from_response(response, type: Timeslip, key: "timeslips")
+      Collection.from_response(response, type: Timeslip)
     end
 
     def retrieve(id:)

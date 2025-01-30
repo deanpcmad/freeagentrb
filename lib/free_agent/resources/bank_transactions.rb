@@ -4,7 +4,7 @@ module FreeAgent
       attributes = { bank_account: bank_account }
 
       response = get_request("bank_transactions", params: attributes.merge(params))
-      Collection.from_response(response, type: BankTransaction, key: "bank_transactions")
+      Collection.from_response(response, type: BankTransaction)
     end
 
     def retrieve(id:)

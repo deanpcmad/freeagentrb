@@ -2,17 +2,17 @@ module FreeAgent
   class BillsResource < Resource
     def list(**params)
       response = get_request("bills", params: params)
-      Collection.from_response(response, type: Bill, key: "bills")
+      Collection.from_response(response, type: Bill,)
     end
 
     def list_for_contact(contact:, **params)
       response = get_request("bills?contact=#{contact}", params: params)
-      Collection.from_response(response, type: Bill, key: "bills")
+      Collection.from_response(response, type: Bill)
     end
 
     def list_for_project(project:, **params)
       response = get_request("bills?project=#{project}", params: params)
-      Collection.from_response(response, type: Bill, key: "bills")
+      Collection.from_response(response, type: Bill)
     end
 
     def retrieve(id:)

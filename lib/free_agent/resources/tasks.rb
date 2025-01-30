@@ -2,12 +2,12 @@ module FreeAgent
   class TasksResource < Resource
     def list(**params)
       response = get_request("tasks", params: params)
-      Collection.from_response(response, type: Task, key: "tasks")
+      Collection.from_response(response, type: Task)
     end
 
     def list_for_project(project:, **params)
       response = get_request("tasks?project=#{project}", params: params)
-      Collection.from_response(response, type: Task, key: "tasks")
+      Collection.from_response(response, type: Task)
     end
 
     def retrieve(id:)

@@ -2,22 +2,22 @@ module FreeAgent
   class EstimatesResource < Resource
     def list(**params)
       response = get_request("estimates", params: params)
-      Collection.from_response(response, type: Estimate, key: "estimates")
+      Collection.from_response(response, type: Estimate)
     end
 
     def list_for_contact(contact:, **params)
       response = get_request("estimates?contact=#{contact}", params: params)
-      Collection.from_response(response, type: Estimate, key: "estimates")
+      Collection.from_response(response, type: Estimate)
     end
 
     def list_for_project(project:, **params)
       response = get_request("estimates?project=#{project}", params: params)
-      Collection.from_response(response, type: Estimate, key: "estimates")
+      Collection.from_response(response, type: Estimate)
     end
 
     def list_for_invoice(invoice:, **params)
       response = get_request("estimates?invoice=#{invoice}", params: params)
-      Collection.from_response(response, type: Estimate, key: "estimates")
+      Collection.from_response(response, type: Estimate)
     end
 
     def retrieve(id:)

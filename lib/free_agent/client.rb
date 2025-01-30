@@ -81,6 +81,10 @@ module FreeAgent
         conn.request :json
         conn.response :json
 
+        conn.headers = {
+          "User-Agent" => "freeagentrb/v#{VERSION} (github.com/deanpcmad/freeagentrb)"
+        }
+
         conn.adapter adapter, @stubs
       end
     end

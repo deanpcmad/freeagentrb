@@ -2,12 +2,12 @@ module FreeAgent
   class ProjectsResource < Resource
     def list(**params)
       response = get_request("projects", params: params)
-      Collection.from_response(response, type: Project, key: "projects")
+      Collection.from_response(response, type: Project)
     end
 
     def list_for_contact(contact:, **params)
       response = get_request("projects?contact=#{contact}", params: params)
-      Collection.from_response(response, type: Project, key: "projects")
+      Collection.from_response(response, type: Project)
     end
 
     def retrieve(id:)

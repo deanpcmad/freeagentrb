@@ -4,7 +4,7 @@ module FreeAgent
       url = view.nil? ? "bank_accounts" : "bank_accounts?view=#{view}"
 
       response = get_request(url)
-      Collection.from_response(response, type: BankAccount, key: "bank_accounts")
+      Collection.from_response(response, type: BankAccount)
     end
 
     def retrieve(id:)

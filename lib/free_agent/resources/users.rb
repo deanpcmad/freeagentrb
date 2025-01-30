@@ -7,7 +7,7 @@ module FreeAgent
 
     def list(**params)
       response = get_request("users", params: params)
-      Collection.from_response(response, type: User, key: "users")
+      Collection.from_response(response, type: User)
     end
 
     def retrieve(id:)

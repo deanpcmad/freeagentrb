@@ -2,17 +2,17 @@ module FreeAgent
   class InvoicesResource < Resource
     def list(**params)
       response = get_request("invoices", params: params)
-      Collection.from_response(response, type: Invoice, key: "invoices")
+      Collection.from_response(response, type: Invoice)
     end
 
     def list_for_contact(contact:, **params)
       response = get_request("invoices?contact=#{contact}", params: params)
-      Collection.from_response(response, type: Invoice, key: "invoices")
+      Collection.from_response(response, type: Invoice)
     end
 
     def list_for_project(project:, **params)
       response = get_request("invoices?project=#{project}", params: params)
-      Collection.from_response(response, type: Invoice, key: "invoices")
+      Collection.from_response(response, type: Invoice)
     end
 
     def retrieve(id:)
