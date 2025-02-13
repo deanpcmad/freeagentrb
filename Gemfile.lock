@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    freeagentrb (0.1.1)
+    freeagentrb (0.1.2)
       faraday (~> 2.11)
       faraday-multipart (~> 1.0)
 
