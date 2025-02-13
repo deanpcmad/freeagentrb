@@ -73,6 +73,14 @@ module FreeAgent
       end
     end
 
+    class UnprocessableContent < ErrorGenerator
+      private
+
+      def error_message
+        "Your request was unprocessable."
+      end
+    end
+
     class TooManyRequestsError < ErrorGenerator
       private
 
@@ -113,6 +121,7 @@ module FreeAgent
       403 => Errors::ForbiddenError,
       404 => Errors::EntityNotFoundError,
       409 => Errors::ConflictError,
+      422 => Errors::UnprocessableContent,
       429 => Errors::TooManyRequestsError,
       500 => Errors::InternalError,
       503 => Errors::ServiceUnavailableError,
