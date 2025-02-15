@@ -13,9 +13,15 @@ module FreeAgent
 
     private
 
+    # Parse the FreeAgent error code and message from the response body
     def set_freeagent_error_values
-      @freeagent_error_code = @response_body.dig("error")
-      @freeagent_error_message = @response_body.dig("message")
+      if @response_body.dig("errors") && @response_body.dig("errors").is_a?(Array)
+        @freeagent_error_message = @response_body.dig("errors").map { |error| error["message"] }.join(", ")
+      elsif @response_body.dig("errors", "error", "message")
+        @freeagent_error_message = @response_body.dig("errors", "error", "message")
+      else
+        @freeagent_error_message = @response_body.dig("message")
+      end
     end
 
     def error_message
@@ -37,7 +43,7 @@ module FreeAgent
       private
 
       def error_message
-        "Your request was malformed."
+        "Your request was malformed. '#{freeagent_error_message}'"
       end
     end
 
@@ -77,7 +83,7 @@ module FreeAgent
       private
 
       def error_message
-        "Your request was unprocessable."
+        "Your request was unprocessable. '#{freeagent_error_message}'"
       end
     end
 
