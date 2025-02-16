@@ -28,4 +28,5 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency "faraday", "~> 2.11"
   spec.add_dependency "faraday-multipart", "~> 1.0"
+  spec.add_dependency "ostruct", "~> 0.6.0"
 end
