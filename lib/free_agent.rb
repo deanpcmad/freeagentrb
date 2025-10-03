@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday/multipart"
+require "bigdecimal"
 require "json"
 
 require_relative "free_agent/version"
