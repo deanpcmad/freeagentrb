@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday/multipart"
+require "ostruct"
 require "json"
 
 require_relative "free_agent/version"
@@ -15,6 +16,8 @@ module FreeAgent
   autoload :Error, "free_agent/error"
   autoload :Resource, "free_agent/resource"
   autoload :Object, "free_agent/object"
+
+  autoload :OAuth, "free_agent/oauth"
 
   autoload :CompanyResource, "free_agent/resources/company"
   autoload :ContactsResource, "free_agent/resources/contacts"
