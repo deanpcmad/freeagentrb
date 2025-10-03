@@ -7,11 +7,7 @@ module FreeAgent
       @client_id = client_id
       @client_secret = client_secret
 
-      @base_url = if sandbox
-                    "https://api.sandbox.freeagent.com/v2/"
-                  else
-                    "https://api.freeagent.com/v2/"
-                  end
+      @base_url = sandbox ? "https://api.sandbox.freeagent.com/v2/" : "https://api.freeagent.com/v2/"
     end
 
     def authorise_url(redirect:, state: nil)
