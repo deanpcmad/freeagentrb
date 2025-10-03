@@ -12,7 +12,7 @@ module FreeAgent
       BankAccount.new(response.body["bank_account"])
     end
 
-    def create(type:, name:, opening_balance:, **params)
+    def create(type: "StandardBankAccount", name:, opening_balance:, **params)
       attributes = { type: type, name: name, opening_balance: opening_balance }
       response = post_request("bank_accounts", body: attributes.merge(params))
       BankAccount.new(response.body["bank_account"]) if response.success?

@@ -15,6 +15,7 @@ module FreeAgent
 
     # Parse the FreeAgent error code and message from the response body
     def set_freeagent_error_values
+      return unless @response_body.is_a?(Hash)
       if @response_body.dig("errors") && @response_body.dig("errors").is_a?(Array)
         @freeagent_error_message = @response_body.dig("errors").map { |error| error["message"] }.join(", ")
       elsif @response_body.dig("errors", "error", "message")

@@ -1,5 +1,6 @@
 require "faraday"
 require "faraday/multipart"
+require "bigdecimal"
 require "ostruct"
 require "json"
 
