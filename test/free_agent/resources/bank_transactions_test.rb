@@ -24,8 +24,8 @@ class BankTransactionsResourceTest < Minitest::Test
         "description" => "Test Transaction",
         "amount" => 10.0,
         "transaction_type" => "Credit",
-        "reference" => "TestRef123",
-      },
+        "reference" => "TestRef123"
+      }
     ]
     result = @client.bank_transactions.create(bank_account: 40462, statement: statement)
     assert_equal true, result

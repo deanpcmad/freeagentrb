@@ -45,5 +45,4 @@ class ContactsResourceTest < Minitest::Test
 
     assert_equal true, result
   end
-
 end
