@@ -3,15 +3,20 @@ module FreeAgent
     BASE_URL = "https://api.freeagent.com/v2"
     SANDBOX_BASE_URL = "https://api.sandbox.freeagent.com/v2"
 
-    attr_reader :access_token, :sandbox, :adapter
+    attr_reader :access_token, :sandbox, :adapter, :rate_limiter
 
-    def initialize(access_token:, sandbox: false, adapter: Faraday.default_adapter, stubs: nil)
+    def initialize(access_token:, sandbox: false, adapter: Faraday.default_adapter, stubs: nil, logger: nil, enable_rate_limit_test: false)
       @access_token = access_token
       @sandbox = sandbox
       @adapter = adapter
+      @logger = logger
+      @enable_rate_limit_test = enable_rate_limit_test
 
       # Test stubs for requests
       @stubs = stubs
+
+      # Initialize rate limiter
+      @rate_limiter = FreeAgent::RateLimiter.new(logger: logger)
     end
 
     def company
@@ -88,6 +93,9 @@ module FreeAgent
         conn.headers = {
           "User-Agent" => "freeagentrb/v#{VERSION} (github.com/deanpcmad/freeagentrb)"
         }
+
+        # Add X-RateLimit-Test header if enabled (for testing in sandbox)
+        conn.headers["X-RateLimit-Test"] = "true" if @enable_rate_limit_test
 
         conn.adapter adapter, @stubs
       end

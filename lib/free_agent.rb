@@ -17,6 +17,7 @@ module FreeAgent
   autoload :Error, "free_agent/error"
   autoload :Resource, "free_agent/resource"
   autoload :Object, "free_agent/object"
+  autoload :RateLimiter, "free_agent/rate_limiter"
 
   autoload :OAuth, "free_agent/oauth"
 

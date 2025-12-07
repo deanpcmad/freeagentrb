@@ -29,6 +29,11 @@ module FreeAgent
     end
 
     def handle_response(response)
+      # Update rate limiter on 429 responses
+      if response.status == 429
+        client.rate_limiter.update(response.headers)
+      end
+
       return true if response.status == 204
       return response unless error?(response)
 

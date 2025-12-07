@@ -23,6 +23,43 @@ See [this page](https://dev.freeagent.com/docs/quick_start) for more info.
 @client = FreeAgent::Client.new(access_token: "", sandbox: true)
 ```
 
+### Rate Limiting
+
+The library automatically tracks rate limiting based on the FreeAgent API's `Retry-After` header when you receive a 429 (Too Many Requests) response. You can access rate limit information through the client's rate limiter:
+
+```ruby
+# Initialize with optional logger
+require "logger"
+logger = Logger.new($stdout)
+@client = FreeAgent::Client.new(access_token: "", sandbox: true, logger: logger)
+
+# Check rate limit status
+@client.rate_limiter.status
+# => "Not rate limited" or "Rate limited. Retry in 60 seconds"
+
+# Check if currently rate limited
+@client.rate_limiter.rate_limited?
+# => true/false
+
+# Get seconds until rate limit resets
+@client.rate_limiter.reset_in
+# => 60 (seconds remaining)
+
+# Manually wait if rate limited
+@client.rate_limiter.wait_if_rate_limited
+```
+
+For testing rate limiting in the sandbox, enable the `X-RateLimit-Test` header:
+
+```ruby
+# This artificially lowers sandbox API calls to 5 requests/minute
+@client = FreeAgent::Client.new(
+  access_token: "",
+  sandbox: true,
+  enable_rate_limit_test: true
+)
+```
+
 ### OAuth
 
 This library includes the ability to create, refresh and revoke OAuth tokens.
