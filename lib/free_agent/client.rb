@@ -3,11 +3,12 @@ module FreeAgent
     BASE_URL = "https://api.freeagent.com/v2"
     SANDBOX_BASE_URL = "https://api.sandbox.freeagent.com/v2"
 
-    attr_reader :access_token, :sandbox, :adapter, :rate_limiter
+    attr_reader :access_token, :sandbox, :subdomain, :adapter, :rate_limiter
 
-    def initialize(access_token:, sandbox: false, adapter: Faraday.default_adapter, stubs: nil, logger: nil, enable_rate_limit_test: false)
+    def initialize(access_token:, sandbox: false, subdomain: nil, adapter: Faraday.default_adapter, stubs: nil, logger: nil, enable_rate_limit_test: false)
       @access_token = access_token
       @sandbox = sandbox
+      @subdomain = subdomain
       @adapter = adapter
       @logger = logger
       @enable_rate_limit_test = enable_rate_limit_test
@@ -17,6 +18,20 @@ module FreeAgent
 
       # Initialize rate limiter
       @rate_limiter = FreeAgent::RateLimiter.new(logger: logger)
+    end
+
+    # Returns a new client scoped to one of the practice's clients, so that
+    # requests are made on their behalf via the X-Subdomain header.
+    def on_behalf_of(subdomain)
+      self.class.new(
+        access_token: access_token,
+        sandbox: sandbox,
+        subdomain: subdomain,
+        adapter: adapter,
+        stubs: @stubs,
+        logger: @logger,
+        enable_rate_limit_test: @enable_rate_limit_test
+      )
     end
 
     def company
@@ -98,6 +113,9 @@ module FreeAgent
           "User-Agent" => "freeagentrb/v#{VERSION} (github.com/deanpcmad/freeagentrb)"
         }
 
+        # Make requests on behalf of a practice client
+        conn.headers["X-Subdomain"] = subdomain if subdomain
+
         # Add X-RateLimit-Test header if enabled (for testing in sandbox)
         conn.headers["X-RateLimit-Test"] = "true" if @enable_rate_limit_test
 
@@ -108,9 +126,12 @@ module FreeAgent
     # Uses Faraday Multipart (lostisland/faraday-multipart)
     def connection_upload
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
-      @connection ||= Faraday.new(url) do |conn|
+      @connection_upload ||= Faraday.new(url) do |conn|
         conn.request :authorization, :Bearer, access_token
         conn.request :multipart
+
+        conn.headers["User-Agent"] = "freeagentrb/v#{VERSION} (github.com/deanpcmad/freeagentrb)"
+        conn.headers["X-Subdomain"] = subdomain if subdomain
       end
     end
   end
