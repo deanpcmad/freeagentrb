@@ -1,8 +1,6 @@
 # FreeAgentRB
 
-**This library is a work in progress**
-
-FreeAgentRB is a Ruby library for interacting with the FreeAgent v2 API.
+FreeAgentRB is the easiest and most complete Ruby library for the FreeAgent v2 API.
 
 ## Installation
 
