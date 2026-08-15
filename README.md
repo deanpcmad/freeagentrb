@@ -79,6 +79,269 @@ This library includes the ability to create, refresh and revoke OAuth tokens.
 @oauth.refresh(refresh_token: "abc123")
 ```
 
+
+## Resources
+
+Methods that return a list give you a `FreeAgent::Collection`, which responds
+to `each`, `count`, `first` and `last`, along with `total` (from the
+`X-Total-Count` header) and `pagination` (from the `Link` header).
+
+Any extra keyword arguments are passed through to the API as query parameters
+on list methods, or as attributes on create and update, so anything documented
+by FreeAgent that isn't named below can still be sent.
+
+Attributes that reference another record are given as full URLs, e.g.
+`contact: "https://api.freeagent.com/v2/contacts/1"`.
+
+### Company
+
+```ruby
+@client.company.retrieve
+```
+
+### Contacts
+
+```ruby
+@client.contacts.list
+@client.contacts.list(view: "active")
+@client.contacts.retrieve(id: "12345")
+@client.contacts.create first_name: "Dwight", last_name: "Schrute"
+@client.contacts.update id: "12345", first_name: "Dwight Kurt"
+@client.contacts.delete id: "12345"
+```
+
+### Users
+
+```ruby
+@client.users.me
+@client.users.update_me first_name: "Dwight"
+
+@client.users.list
+@client.users.retrieve(id: "12345")
+@client.users.create email: "dwight@example.com", first_name: "Dwight", last_name: "Schrute", role: "Director"
+@client.users.update id: "12345", role: "Employee"
+@client.users.delete id: "12345"
+```
+
+### Bank Accounts
+
+```ruby
+@client.bank_accounts.list
+@client.bank_accounts.list(view: "paypal_accounts")
+@client.bank_accounts.retrieve(id: "12345")
+@client.bank_accounts.create type: "StandardBankAccount", name: "My Account", opening_balance: "10"
+@client.bank_accounts.update id: "12345", name: "My Other Account"
+@client.bank_accounts.delete id: "12345"
+```
+
+### Bank Transactions
+
+A bank account is required when listing.
+
+```ruby
+@client.bank_transactions.list bank_account: "https://api.freeagent.com/v2/bank_accounts/1"
+@client.bank_transactions.list bank_account: "...", view: "unexplained"
+@client.bank_transactions.retrieve(id: "12345")
+@client.bank_transactions.delete id: "12345"
+
+# Upload a statement as an array of transactions
+@client.bank_transactions.create bank_account: "...", statement: [
+  { dated_on: "2026-08-15", amount: "100.0", description: "Payment" }
+]
+
+# Or upload a statement file (OFX, QIF, CSV)
+@client.bank_transactions.upload bank_account: "...", statement: "statement.csv"
+```
+
+### Bank Transaction Explanations
+
+```ruby
+@client.bank_transaction_explanations.list bank_account: "https://api.freeagent.com/v2/bank_accounts/1"
+@client.bank_transaction_explanations.retrieve(id: "12345")
+@client.bank_transaction_explanations.create bank_transaction: "...", dated_on: "2026-08-15", gross_value: "-100.0", category: "..."
+@client.bank_transaction_explanations.delete id: "12345"
+```
+
+### Projects
+
+```ruby
+@client.projects.list
+@client.projects.list(view: "active")
+@client.projects.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.projects.retrieve(id: "12345")
+@client.projects.create contact: "...", name: "My Project", status: "Active", currency: "GBP", budget_units: "Hours"
+@client.projects.update id: "12345", name: "Renamed Project"
+@client.projects.delete id: "12345"
+```
+
+### Tasks
+
+```ruby
+@client.tasks.list
+@client.tasks.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.tasks.retrieve(id: "12345")
+@client.tasks.create project: "...", name: "My Task", currency: "GBP", is_billable: true, status: "Active"
+@client.tasks.update id: "12345", name: "Renamed Task"
+@client.tasks.delete id: "12345"
+```
+
+### Timeslips
+
+```ruby
+@client.timeslips.list
+@client.timeslips.list(from_date: "2026-01-01", to_date: "2026-01-31")
+@client.timeslips.list_for_user user: "https://api.freeagent.com/v2/users/1"
+@client.timeslips.list_for_task task: "https://api.freeagent.com/v2/tasks/1"
+@client.timeslips.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.timeslips.retrieve(id: "12345")
+@client.timeslips.create task: "...", user: "...", project: "...", dated_on: "2026-08-15", hours: "7.5"
+@client.timeslips.update id: "12345", hours: "8.0"
+@client.timeslips.delete id: "12345"
+```
+
+### Invoices
+
+```ruby
+@client.invoices.list
+@client.invoices.list(view: "open", nested_invoice_items: true)
+@client.invoices.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.invoices.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.invoices.retrieve(id: "12345")
+
+@client.invoices.create contact: "...", dated_on: "2026-08-15", payment_terms_in_days: 30, invoice_items: [
+  { description: "Consultancy", item_type: "Hours", price: "100.0", quantity: "10.0" }
+]
+
+@client.invoices.update id: "12345", reference: "002"
+@client.invoices.delete id: "12345"
+@client.invoices.duplicate id: "12345"
+
+# Returns a Base64-encoded PDF
+@client.invoices.retrieve_pdf id: "12345"
+
+@client.invoices.email id: "12345", to: "someone@example.com", subject: "Your invoice"
+
+@client.invoices.mark_as_sent id: "12345"
+@client.invoices.mark_as_scheduled id: "12345"
+@client.invoices.mark_as_draft id: "12345"
+@client.invoices.mark_as_cancelled id: "12345"
+@client.invoices.convert_to_credit_note id: "12345"
+@client.invoices.direct_debit id: "12345"
+```
+
+`net_value`, `total_value`, `paid_value`, `due_value` and `sales_tax_value` are
+returned as floats rather than the strings the API sends. The same applies to
+credit notes, bills, estimates and expenses.
+
+### Estimates
+
+```ruby
+@client.estimates.list
+@client.estimates.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.estimates.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.estimates.list_for_invoice invoice: "https://api.freeagent.com/v2/invoices/1"
+@client.estimates.retrieve(id: "12345")
+@client.estimates.create contact: "...", dated_on: "2026-08-15", currency: "GBP", reference: "001"
+@client.estimates.update id: "12345", reference: "002"
+@client.estimates.delete id: "12345"
+
+# Returns a Base64-encoded PDF
+@client.estimates.retrieve_pdf id: "12345"
+
+@client.estimates.email id: "12345", to: "someone@example.com"
+
+@client.estimates.mark_as_sent id: "12345"
+@client.estimates.mark_as_draft id: "12345"
+@client.estimates.mark_as_approved id: "12345"
+@client.estimates.mark_as_rejected id: "12345"
+```
+
+### Estimate Items
+
+```ruby
+@client.estimate_items.create estimate: "https://api.freeagent.com/v2/estimates/1",
+  item_type: "Hours", quantity: "10.0", price: "100.0", description: "Consultancy"
+@client.estimate_items.update id: "12345", description: "Updated"
+@client.estimate_items.delete id: "12345"
+```
+
+### Credit Notes
+
+```ruby
+@client.credit_notes.list
+@client.credit_notes.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.credit_notes.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.credit_notes.retrieve(id: "12345")
+@client.credit_notes.create contact: "...", dated_on: "2026-08-15", payment_terms_in_days: 30
+@client.credit_notes.update id: "12345", reference: "002"
+@client.credit_notes.delete id: "12345"
+
+# Returns a Base64-encoded PDF
+@client.credit_notes.retrieve_pdf id: "12345"
+
+@client.credit_notes.email id: "12345", to: "someone@example.com"
+
+@client.credit_notes.mark_as_sent id: "12345"
+@client.credit_notes.mark_as_draft id: "12345"
+@client.credit_notes.mark_as_cancelled id: "12345"
+```
+
+### Bills
+
+```ruby
+@client.bills.list
+@client.bills.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.bills.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.bills.retrieve(id: "12345")
+
+@client.bills.create contact: "...", dated_on: "2026-08-15", due_on: "2026-09-15", reference: "Bill-001", bill_items: [
+  { description: "Stationery", category: "https://api.freeagent.com/v2/categories/285", total_value: "100.0" }
+]
+
+@client.bills.update id: "12345", reference: "Bill-002"
+@client.bills.delete id: "12345"
+```
+
+### Expenses
+
+```ruby
+@client.expenses.list
+@client.expenses.list(from_date: "2026-01-01", to_date: "2026-01-31")
+@client.expenses.list_for_user user: "https://api.freeagent.com/v2/users/1"
+@client.expenses.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.expenses.retrieve(id: "12345")
+
+@client.expenses.create user: "...", category: "https://api.freeagent.com/v2/categories/285",
+  dated_on: "2026-08-15", gross_value: "-12.0", description: "Train fare"
+
+# Mileage expenses use the Mileage category
+@client.expenses.create user: "...", category: "Mileage", dated_on: "2026-08-15",
+  mileage: 100, vehicle_type: "Car"
+
+@client.expenses.update id: "12345", description: "Updated"
+@client.expenses.delete id: "12345"
+
+@client.expenses.mileage_settings
+```
+
+### Categories
+
+Unlike other resources this returns a plain `Array`, with each category tagged
+with the `category_type` it was listed under.
+
+```ruby
+@client.categories.list
+# => [#<FreeAgent::Category description="Accommodation and Travel",
+#      nominal_code="250", category_type="admin_expenses_categories">, ...]
+```
+
+### Attachments
+
+```ruby
+@client.attachments.retrieve(id: "12345")
+@client.attachments.delete id: "12345"
+```
+
 ### Accountancy Practice API
 
 If you've authenticated as an accountancy practice, you can list the clients
@@ -147,13 +410,3 @@ end
 `on_behalf_of` returns a new client and leaves the original untouched, so the
 practice-level client can still be used for `clients`, `account_managers` and
 `practice`.
-
-### Bank Accounts
-
-```ruby
-@client.bank_accounts.list
-@client.bank_accounts.list(view: "paypal_accounts")
-@client.bank_accounts.retrieve(id: "12345")
-@client.bank_accounts.create type: "StandardBankAccount", name: "My Account", opening_balance: "10"
-@client.bank_accounts.update id: "12345", name: "My Other Account"
-```
