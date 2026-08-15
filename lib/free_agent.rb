@@ -51,6 +51,9 @@ module FreeAgent
   autoload :BankFeedsResource, "free_agent/resources/bank_feeds"
   autoload :EmailAddressesResource, "free_agent/resources/email_addresses"
   autoload :AccountLocksResource, "free_agent/resources/account_locks"
+  autoload :CapitalAssetsResource, "free_agent/resources/capital_assets"
+  autoload :CapitalAssetTypesResource, "free_agent/resources/capital_asset_types"
+  autoload :HirePurchasesResource, "free_agent/resources/hire_purchases"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -81,4 +84,7 @@ module FreeAgent
   autoload :Note, "free_agent/objects/note"
   autoload :BankFeed, "free_agent/objects/bank_feed"
   autoload :AccountLock, "free_agent/objects/account_lock"
+  autoload :CapitalAsset, "free_agent/objects/capital_asset"
+  autoload :CapitalAssetType, "free_agent/objects/capital_asset_type"
+  autoload :HirePurchase, "free_agent/objects/hire_purchase"
 end

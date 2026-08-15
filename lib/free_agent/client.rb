@@ -154,6 +154,18 @@ module FreeAgent
       AccountLocksResource.new(self)
     end
 
+    def capital_assets
+      CapitalAssetsResource.new(self)
+    end
+
+    def capital_asset_types
+      CapitalAssetTypesResource.new(self)
+    end
+
+    def hire_purchases
+      HirePurchasesResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

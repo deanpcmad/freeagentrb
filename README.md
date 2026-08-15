@@ -442,6 +442,35 @@ with the `category_type` it was listed under.
 #      nominal_code="250", category_type="admin_expenses_categories">, ...]
 ```
 
+### Capital Assets
+
+Read-only.
+
+```ruby
+@client.capital_assets.list
+@client.capital_assets.list include_history: true
+@client.capital_assets.retrieve(id: "12345")
+```
+
+### Capital Asset Types
+
+```ruby
+@client.capital_asset_types.list
+@client.capital_asset_types.retrieve(id: "12345")
+@client.capital_asset_types.create name: "Computer Equipment"
+@client.capital_asset_types.update id: "12345", name: "Vehicles"
+@client.capital_asset_types.delete id: "12345"
+```
+
+### Hire Purchases
+
+Read-only.
+
+```ruby
+@client.hire_purchases.list
+@client.hire_purchases.retrieve(id: "12345")
+```
+
 ### Attachments
 
 ```ruby
