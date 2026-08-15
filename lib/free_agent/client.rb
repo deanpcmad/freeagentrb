@@ -130,6 +130,30 @@ module FreeAgent
       StockItemsResource.new(self)
     end
 
+    def journal_sets
+      JournalSetsResource.new(self)
+    end
+
+    def transactions
+      TransactionsResource.new(self)
+    end
+
+    def notes
+      NotesResource.new(self)
+    end
+
+    def bank_feeds
+      BankFeedsResource.new(self)
+    end
+
+    def email_addresses
+      EmailAddressesResource.new(self)
+    end
+
+    def account_locks
+      AccountLocksResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

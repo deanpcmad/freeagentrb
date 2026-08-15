@@ -45,6 +45,12 @@ module FreeAgent
   autoload :PriceListItemsResource, "free_agent/resources/price_list_items"
   autoload :CreditNoteReconciliationsResource, "free_agent/resources/credit_note_reconciliations"
   autoload :StockItemsResource, "free_agent/resources/stock_items"
+  autoload :JournalSetsResource, "free_agent/resources/journal_sets"
+  autoload :TransactionsResource, "free_agent/resources/transactions"
+  autoload :NotesResource, "free_agent/resources/notes"
+  autoload :BankFeedsResource, "free_agent/resources/bank_feeds"
+  autoload :EmailAddressesResource, "free_agent/resources/email_addresses"
+  autoload :AccountLocksResource, "free_agent/resources/account_locks"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -70,4 +76,9 @@ module FreeAgent
   autoload :PriceListItem, "free_agent/objects/price_list_item"
   autoload :CreditNoteReconciliation, "free_agent/objects/credit_note_reconciliation"
   autoload :StockItem, "free_agent/objects/stock_item"
+  autoload :JournalSet, "free_agent/objects/journal_set"
+  autoload :Transaction, "free_agent/objects/transaction"
+  autoload :Note, "free_agent/objects/note"
+  autoload :BankFeed, "free_agent/objects/bank_feed"
+  autoload :AccountLock, "free_agent/objects/account_lock"
 end

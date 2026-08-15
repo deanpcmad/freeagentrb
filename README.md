@@ -364,6 +364,73 @@ Read-only.
 @client.expenses.mileage_settings
 ```
 
+### Journal Sets
+
+```ruby
+@client.journal_sets.list
+@client.journal_sets.opening_balances
+@client.journal_sets.retrieve(id: "12345")
+
+@client.journal_sets.create dated_on: "2026-08-15", description: "Adjustment", journal_entries: [
+  { category: "https://api.freeagent.com/v2/categories/285", debit_value: "100.0", description: "Stationery" },
+  { category: "https://api.freeagent.com/v2/categories/750", debit_value: "-100.0", description: "Stationery" }
+]
+
+@client.journal_sets.update id: "12345", description: "Updated"
+@client.journal_sets.delete id: "12345"
+```
+
+### Transactions
+
+The general ledger, as opposed to bank transactions. Read-only, and date
+ranges must span 12 months or less.
+
+```ruby
+@client.transactions.list
+@client.transactions.list from_date: "2026-01-01", to_date: "2026-06-30"
+@client.transactions.retrieve(id: "12345")
+```
+
+### Notes
+
+The parent record goes in the query string rather than the body, so pass
+either `contact:` or `project:`.
+
+```ruby
+@client.notes.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.notes.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.notes.retrieve(id: "12345")
+@client.notes.create note: "Called them", contact: "https://api.freeagent.com/v2/contacts/1"
+@client.notes.update id: "12345", note: "Updated"
+@client.notes.delete id: "12345"
+```
+
+### Bank Feeds
+
+Read-only.
+
+```ruby
+@client.bank_feeds.list
+@client.bank_feeds.retrieve(id: "12345")
+```
+
+### Email Addresses
+
+Verified sender addresses, returned as a plain `Array` of strings.
+
+```ruby
+@client.email_addresses.list
+# => ["me@example.com"]
+```
+
+### Account Locks
+
+```ruby
+@client.account_locks.retrieve
+@client.account_locks.update locked_until: "2026-03-31"
+@client.account_locks.delete
+```
+
 ### Categories
 
 Unlike other resources this returns a plain `Array`, with each category tagged
