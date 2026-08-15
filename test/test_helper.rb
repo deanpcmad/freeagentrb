@@ -33,6 +33,11 @@ def stub_client
   FreeAgent::Client.new(access_token: "test_token", adapter: :test, stubs: stubs)
 end
 
+# Shorthand for a stubbed JSON response triplet
+def json(body, status: 200)
+  [ status, { "Content-Type" => "application/json" }, JSON.dump(body) ]
+end
+
 class Minitest::Test
   def setup
     VCR.insert_cassette(name)
