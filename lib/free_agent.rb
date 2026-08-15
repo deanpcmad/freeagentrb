@@ -38,6 +38,9 @@ module FreeAgent
   autoload :BillsResource, "free_agent/resources/bills"
   autoload :CategoriesResource, "free_agent/resources/categories"
   autoload :ExpensesResource, "free_agent/resources/expenses"
+  autoload :ClientsResource, "free_agent/resources/clients"
+  autoload :AccountManagersResource, "free_agent/resources/account_managers"
+  autoload :PracticeResource, "free_agent/resources/practice"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -56,4 +59,7 @@ module FreeAgent
   autoload :Bill, "free_agent/objects/bill"
   autoload :Category, "free_agent/objects/category"
   autoload :Expense, "free_agent/objects/expense"
+  autoload :PracticeClient, "free_agent/objects/practice_client"
+  autoload :AccountManager, "free_agent/objects/account_manager"
+  autoload :Practice, "free_agent/objects/practice"
 end
