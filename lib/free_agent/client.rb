@@ -166,6 +166,26 @@ module FreeAgent
       HirePurchasesResource.new(self)
     end
 
+    def balance_sheet
+      BalanceSheetResource.new(self)
+    end
+
+    def profit_and_loss
+      ProfitAndLossResource.new(self)
+    end
+
+    def trial_balance
+      TrialBalanceResource.new(self)
+    end
+
+    def cashflow
+      CashflowResource.new(self)
+    end
+
+    def final_accounts_reports
+      FinalAccountsReportsResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

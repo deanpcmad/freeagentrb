@@ -54,6 +54,11 @@ module FreeAgent
   autoload :CapitalAssetsResource, "free_agent/resources/capital_assets"
   autoload :CapitalAssetTypesResource, "free_agent/resources/capital_asset_types"
   autoload :HirePurchasesResource, "free_agent/resources/hire_purchases"
+  autoload :BalanceSheetResource, "free_agent/resources/balance_sheet"
+  autoload :ProfitAndLossResource, "free_agent/resources/profit_and_loss"
+  autoload :TrialBalanceResource, "free_agent/resources/trial_balance"
+  autoload :CashflowResource, "free_agent/resources/cashflow"
+  autoload :FinalAccountsReportsResource, "free_agent/resources/final_accounts_reports"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -87,4 +92,9 @@ module FreeAgent
   autoload :CapitalAsset, "free_agent/objects/capital_asset"
   autoload :CapitalAssetType, "free_agent/objects/capital_asset_type"
   autoload :HirePurchase, "free_agent/objects/hire_purchase"
+  autoload :BalanceSheetItem, "free_agent/objects/balance_sheet_item"
+  autoload :ProfitAndLossItem, "free_agent/objects/profit_and_loss_item"
+  autoload :TrialBalanceItem, "free_agent/objects/trial_balance_item"
+  autoload :CashflowItem, "free_agent/objects/cashflow_item"
+  autoload :FinalAccountsReport, "free_agent/objects/final_accounts_report"
 end

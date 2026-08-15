@@ -471,6 +471,33 @@ Read-only.
 @client.hire_purchases.retrieve(id: "12345")
 ```
 
+### Reports
+
+All read-only. Each returns a `FreeAgent::Collection` of line items.
+
+```ruby
+@client.balance_sheet.retrieve period_ends_on: "2026-03-31"
+@client.balance_sheet.opening_balances
+
+@client.profit_and_loss.summary from_date: "2026-01-01", to_date: "2026-03-31"
+
+@client.trial_balance.summary
+@client.trial_balance.opening_balances
+
+@client.cashflow.retrieve
+```
+
+### Final Accounts Reports
+
+Reports are identified by the date their accounting period ends, not by an id.
+
+```ruby
+@client.final_accounts_reports.list
+@client.final_accounts_reports.retrieve period_ends_on: "2026-03-31"
+@client.final_accounts_reports.mark_as_filed period_ends_on: "2026-03-31"
+@client.final_accounts_reports.mark_as_unfiled period_ends_on: "2026-03-31"
+```
+
 ### Attachments
 
 ```ruby
