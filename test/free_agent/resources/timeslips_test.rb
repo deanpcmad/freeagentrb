@@ -48,4 +48,20 @@ class TimeslipsResourceTest < Minitest::Test
     assert_equal({ "timeslip" => { "hours" => "8.0" } }, body)
     assert_equal "8.0", timeslip.hours
   end
+
+  def test_start_timer_posts_to_the_timer_path
+    client = stub_client do |stubs|
+      stubs.post("/v2/timeslips/1/timer") { json({ "timeslip" => { "hours" => "0.0" } }) }
+    end
+
+    assert_equal "0.0", client.timeslips.start_timer(id: 1).hours
+  end
+
+  def test_stop_timer_deletes_the_timer_path
+    client = stub_client do |stubs|
+      stubs.delete("/v2/timeslips/1/timer") { json({}) }
+    end
+
+    assert_equal true, client.timeslips.stop_timer(id: 1)
+  end
 end

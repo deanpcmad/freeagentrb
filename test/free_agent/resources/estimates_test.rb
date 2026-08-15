@@ -47,4 +47,12 @@ class EstimatesResourceTest < Minitest::Test
 
     assert_equal true, client.estimates.mark_as_rejected(id: 1)
   end
+
+  def test_convert_to_invoice_uses_correct_path
+    client = stub_client do |stubs|
+      stubs.put("/v2/estimates/1/transitions/convert_to_invoice") { json({}) }
+    end
+
+    assert_equal true, client.estimates.convert_to_invoice(id: 1)
+  end
 end

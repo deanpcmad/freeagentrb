@@ -41,5 +41,15 @@ module FreeAgent
       response = delete_request("timeslips/#{id}")
       response.success?
     end
+
+    def start_timer(id:)
+      response = post_request("timeslips/#{id}/timer", body: {})
+      Timeslip.new(response.body["timeslip"]) if response.success?
+    end
+
+    def stop_timer(id:)
+      response = delete_request("timeslips/#{id}/timer")
+      response.success?
+    end
   end
 end

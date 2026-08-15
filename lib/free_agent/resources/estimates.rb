@@ -73,5 +73,10 @@ module FreeAgent
       response = put_request("estimates/#{id}/transitions/mark_as_rejected", body: {})
       response.success?
     end
+
+    def convert_to_invoice(id:)
+      response = put_request("estimates/#{id}/transitions/convert_to_invoice", body: {})
+      response.success?
+    end
   end
 end

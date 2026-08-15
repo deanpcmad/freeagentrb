@@ -113,4 +113,5 @@ module FreeAgent
   autoload :PayrollPeriod, "free_agent/objects/payroll_period"
   autoload :PayrollProfile, "free_agent/objects/payroll_profile"
   autoload :Property, "free_agent/objects/property"
+  autoload :TimelineItem, "free_agent/objects/timeline_item"
 end

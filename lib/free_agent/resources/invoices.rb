@@ -79,6 +79,28 @@ module FreeAgent
       response.success?
     end
 
+    # Recent activity across all invoices, e.g. overdue and open invoices
+    def timeline(**params)
+      response = get_request("invoices/timeline", params: params)
+      Collection.from_response(response, type: TimelineItem)
+    end
+
+    # The text added to the bottom of every new invoice
+    def default_additional_text
+      response = get_request("invoices/default_additional_text")
+      response.body["default_additional_text"]
+    end
+
+    def update_default_additional_text(text)
+      response = put_request("invoices/default_additional_text", body: { default_additional_text: text })
+      response.success?
+    end
+
+    def delete_default_additional_text
+      response = delete_request("invoices/default_additional_text")
+      response.success?
+    end
+
     def direct_debit(id:)
       response = post_request("invoices/#{id}/direct_debit", body: {})
       response.success?

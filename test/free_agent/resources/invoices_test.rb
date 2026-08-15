@@ -184,4 +184,44 @@ class InvoicesResourceTest < Minitest::Test
       @stubs = nil
     end
   end
+
+  def test_timeline_returns_timeline_items
+    client = stub_client do |stubs|
+      stubs.get("/v2/invoices/timeline") { json({ "timeline_items" => [ { "type" => "overdue", "count" => 2 } ] }) }
+    end
+
+    item = client.invoices.timeline.first
+
+    assert_equal "overdue", item.type
+    assert_equal 2, item.count
+  end
+
+  def test_default_additional_text_returns_the_text
+    client = stub_client do |stubs|
+      stubs.get("/v2/invoices/default_additional_text") { json({ "default_additional_text" => "Thanks!" }) }
+    end
+
+    assert_equal "Thanks!", client.invoices.default_additional_text
+  end
+
+  def test_update_default_additional_text_sends_the_text
+    body = nil
+    client = stub_client do |stubs|
+      stubs.put("/v2/invoices/default_additional_text") do |env|
+        body = JSON.parse(env.body)
+        json({})
+      end
+    end
+
+    assert_equal true, client.invoices.update_default_additional_text("Thanks!")
+    assert_equal({ "default_additional_text" => "Thanks!" }, body)
+  end
+
+  def test_delete_default_additional_text_returns_true
+    client = stub_client do |stubs|
+      stubs.delete("/v2/invoices/default_additional_text") { json({}) }
+    end
+
+    assert_equal true, client.invoices.delete_default_additional_text
+  end
 end

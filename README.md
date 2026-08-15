@@ -195,6 +195,9 @@ A bank account is required when listing.
 @client.timeslips.create task: "...", user: "...", project: "...", dated_on: "2026-08-15", hours: "7.5"
 @client.timeslips.update id: "12345", hours: "8.0"
 @client.timeslips.delete id: "12345"
+
+@client.timeslips.start_timer id: "12345"
+@client.timeslips.stop_timer id: "12345"
 ```
 
 ### Invoices
@@ -225,6 +228,14 @@ A bank account is required when listing.
 @client.invoices.mark_as_cancelled id: "12345"
 @client.invoices.convert_to_credit_note id: "12345"
 @client.invoices.direct_debit id: "12345"
+
+# Recent activity across all invoices
+@client.invoices.timeline
+
+# The text added to the bottom of every new invoice
+@client.invoices.default_additional_text
+@client.invoices.update_default_additional_text "Thanks for your business"
+@client.invoices.delete_default_additional_text
 ```
 
 `net_value`, `total_value`, `paid_value`, `due_value` and `sales_tax_value` are
@@ -252,6 +263,7 @@ credit notes, bills, estimates and expenses.
 @client.estimates.mark_as_draft id: "12345"
 @client.estimates.mark_as_approved id: "12345"
 @client.estimates.mark_as_rejected id: "12345"
+@client.estimates.convert_to_invoice id: "12345"
 ```
 
 ### Estimate Items
