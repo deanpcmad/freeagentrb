@@ -26,6 +26,7 @@ GEM
     base64 (0.3.0)
     benchmark (0.4.1)
     bigdecimal (3.2.3)
+    cgi (0.5.2)
     concurrent-ruby (1.3.5)
     connection_pool (2.5.4)
     dotenv (3.1.8)
@@ -102,6 +103,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  cgi
   dotenv
   freeagentrb!
   minitest (~> 5.0)
