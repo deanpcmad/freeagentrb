@@ -263,6 +263,37 @@ credit notes, bills, estimates and expenses.
 @client.estimate_items.delete id: "12345"
 ```
 
+### Recurring Invoices
+
+Read-only.
+
+```ruby
+@client.recurring_invoices.list
+@client.recurring_invoices.list_for_contact contact: "https://api.freeagent.com/v2/contacts/1"
+@client.recurring_invoices.list_for_project project: "https://api.freeagent.com/v2/projects/1"
+@client.recurring_invoices.retrieve(id: "12345")
+```
+
+### Price List Items
+
+```ruby
+@client.price_list_items.list
+@client.price_list_items.retrieve(id: "12345")
+@client.price_list_items.create code: "CONS", quantity: "1.0", item_type: "Hours",
+  description: "Consultancy", price: "100.0"
+@client.price_list_items.update id: "12345", price: "120.0"
+@client.price_list_items.delete id: "12345"
+```
+
+### Stock Items
+
+Read-only.
+
+```ruby
+@client.stock_items.list
+@client.stock_items.retrieve(id: "12345")
+```
+
 ### Credit Notes
 
 ```ruby
@@ -282,6 +313,17 @@ credit notes, bills, estimates and expenses.
 @client.credit_notes.mark_as_sent id: "12345"
 @client.credit_notes.mark_as_draft id: "12345"
 @client.credit_notes.mark_as_cancelled id: "12345"
+```
+
+### Credit Note Reconciliations
+
+```ruby
+@client.credit_note_reconciliations.list
+@client.credit_note_reconciliations.retrieve(id: "12345")
+@client.credit_note_reconciliations.create credit_note: "https://api.freeagent.com/v2/credit_notes/1",
+  invoice: "https://api.freeagent.com/v2/invoices/2", value: "50.0"
+@client.credit_note_reconciliations.update id: "12345", value: "75.0"
+@client.credit_note_reconciliations.delete id: "12345"
 ```
 
 ### Bills

@@ -114,6 +114,22 @@ module FreeAgent
       PracticeResource.new(self)
     end
 
+    def recurring_invoices
+      RecurringInvoicesResource.new(self)
+    end
+
+    def price_list_items
+      PriceListItemsResource.new(self)
+    end
+
+    def credit_note_reconciliations
+      CreditNoteReconciliationsResource.new(self)
+    end
+
+    def stock_items
+      StockItemsResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

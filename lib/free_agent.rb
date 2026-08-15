@@ -41,6 +41,10 @@ module FreeAgent
   autoload :ClientsResource, "free_agent/resources/clients"
   autoload :AccountManagersResource, "free_agent/resources/account_managers"
   autoload :PracticeResource, "free_agent/resources/practice"
+  autoload :RecurringInvoicesResource, "free_agent/resources/recurring_invoices"
+  autoload :PriceListItemsResource, "free_agent/resources/price_list_items"
+  autoload :CreditNoteReconciliationsResource, "free_agent/resources/credit_note_reconciliations"
+  autoload :StockItemsResource, "free_agent/resources/stock_items"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -62,4 +66,8 @@ module FreeAgent
   autoload :PracticeClient, "free_agent/objects/practice_client"
   autoload :AccountManager, "free_agent/objects/account_manager"
   autoload :Practice, "free_agent/objects/practice"
+  autoload :RecurringInvoice, "free_agent/objects/recurring_invoice"
+  autoload :PriceListItem, "free_agent/objects/price_list_item"
+  autoload :CreditNoteReconciliation, "free_agent/objects/credit_note_reconciliation"
+  autoload :StockItem, "free_agent/objects/stock_item"
 end
