@@ -39,7 +39,7 @@ module FreeAgent
     end
 
     def update(id:, **params)
-      response = put_request("estimates/#{id}", body: params)
+      response = put_request("estimates/#{id}", body: { estimate: params })
       Estimate.new(response.body["estimate"]) if response.success?
     end
 
@@ -55,12 +55,12 @@ module FreeAgent
     end
 
     def mark_as_sent(id:)
-      response = put_request("estimaates/#{id}/transitions/mark_as_sent", body: {})
+      response = put_request("estimates/#{id}/transitions/mark_as_sent", body: {})
       response.success?
     end
 
     def mark_as_draft(id:)
-      response = put_request("estimaates/#{id}/transitions/mark_as_draft", body: {})
+      response = put_request("estimates/#{id}/transitions/mark_as_draft", body: {})
       response.success?
     end
 

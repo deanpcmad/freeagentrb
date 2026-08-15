@@ -11,10 +11,26 @@ VCR.configure do |config|
   config.hook_into :faraday
 
   config.filter_sensitive_data("<AUTHORIZATION>") { ENV["FREEAGENT_ACCESS_TOKEN"] }
+
+  # Tests built on stub_client eject their cassette and use Faraday's test
+  # adapter instead, so no real connection is made without a cassette.
+  config.allow_http_connections_when_no_cassette = true
 end
 
 def setup_client
   @client ||= FreeAgent::Client.new(access_token: ENV["FREEAGENT_ACCESS_TOKEN"], sandbox: true)
+end
+
+# Builds a client backed by Faraday's test adapter, for asserting on the
+# request itself (path, body) rather than on a recorded response. Ejects the
+# cassette inserted by setup, so that VCR doesn't record the stubbed responses.
+def stub_client
+  VCR.eject_cassette if VCR.current_cassette
+
+  stubs = Faraday::Adapter::Test::Stubs.new
+  yield stubs
+  @stubs = stubs
+  FreeAgent::Client.new(access_token: "test_token", adapter: :test, stubs: stubs)
 end
 
 class Minitest::Test
@@ -23,6 +39,7 @@ class Minitest::Test
   end
 
   def teardown
-    VCR.eject_cassette
+    VCR.eject_cassette if VCR.current_cassette
+    @stubs&.verify_stubbed_calls
   end
 end

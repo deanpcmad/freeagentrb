@@ -28,12 +28,12 @@ module FreeAgent
     def create(task:, user:, project:, dated_on:, hours:,  **params)
       attributes = { task: task, user: user, project: project, dated_on: dated_on, hours: hours }
 
-      response = post_request("timeslips", body: attributes.merge(params))
+      response = post_request("timeslips", body: { timeslip: attributes.merge(params) })
       Timeslip.new(response.body["timeslip"]) if response.success?
     end
 
     def update(id:, **params)
-      response = put_request("timeslips/#{id}", body: params)
+      response = put_request("timeslips/#{id}", body: { timeslip: params })
       Timeslip.new(response.body["timeslip"]) if response.success?
     end
 
