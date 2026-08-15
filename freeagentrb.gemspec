@@ -8,7 +8,7 @@ Gem::Specification.new do |spec|
   spec.authors = [ "Dean Perry" ]
   spec.email = [ "dean@deanpcmad.com" ]
 
-  spec.summary = "Ruby library for the FreeAgent v2 API"
+  spec.summary = "The easiest and most complete Ruby library for the FreeAgent v2 API"
   spec.homepage = "https://deanpcmad.com"
 
   spec.license = "MIT"
