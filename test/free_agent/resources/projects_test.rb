@@ -69,18 +69,23 @@ class ProjectsResourceTest < Minitest::Test
       budget_units: "Hours"
     )
 
-    assert_equal "Test Project", body["name"]
-    assert_equal "Active", body["status"]
-    assert_equal "Hours", body["budget_units"]
+    assert_equal "Test Project", body["project"]["name"]
+    assert_equal "Active", body["project"]["status"]
+    assert_equal "Hours", body["project"]["budget_units"]
     assert_equal FreeAgent::Project, project.class
   end
 
-  def test_update
+  def test_update_wraps_payload_in_project_root
+    body = nil
     client = stub_client do |stubs|
-      stubs.put("/v2/projects/1") { json({ "project" => PROJECT.merge("name" => "Renamed") }) }
+      stubs.put("/v2/projects/1") do |env|
+        body = JSON.parse(env.body)
+        json({ "project" => PROJECT.merge("name" => "Renamed") })
+      end
     end
 
     assert_equal "Renamed", client.projects.update(id: 1, name: "Renamed").name
+    assert_equal({ "project" => { "name" => "Renamed" } }, body)
   end
 
   def test_delete

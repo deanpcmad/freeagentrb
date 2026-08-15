@@ -49,7 +49,7 @@ class TasksResourceTest < Minitest::Test
   def test_create_sends_required_attributes
     body = nil
     client = stub_client do |stubs|
-      stubs.post("/v2/tasks") do |env|
+      stubs.post("/v2/tasks?project=https://api.freeagent.com/v2/projects/1") do |env|
         body = JSON.parse(env.body)
         json({ "task" => TASK }, status: 201)
       end
@@ -63,17 +63,24 @@ class TasksResourceTest < Minitest::Test
       status: "Active"
     )
 
-    assert_equal "Sample Task", body["name"]
-    assert_equal "https://api.freeagent.com/v2/projects/1", body["project"]
+    # The project goes in the query string, not the payload
+    assert_equal "Sample Task", body["task"]["name"]
+    assert_equal true, body["task"]["is_billable"]
+    refute body["task"].key?("project")
     assert_equal FreeAgent::Task, task.class
   end
 
-  def test_update
+  def test_update_wraps_payload_in_task_root
+    body = nil
     client = stub_client do |stubs|
-      stubs.put("/v2/tasks/1") { json({ "task" => TASK.merge("name" => "Renamed") }) }
+      stubs.put("/v2/tasks/1") do |env|
+        body = JSON.parse(env.body)
+        json({ "task" => TASK.merge("name" => "Renamed") })
+      end
     end
 
     assert_equal "Renamed", client.tasks.update(id: 1, name: "Renamed").name
+    assert_equal({ "task" => { "name" => "Renamed" } }, body)
   end
 
   def test_delete

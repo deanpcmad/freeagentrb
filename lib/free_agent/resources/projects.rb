@@ -18,12 +18,12 @@ module FreeAgent
     def create(contact:, name:, status:, currency:, budget_units:, **params)
       attributes = { contact: contact, name: name, status: status, currency: currency, budget_units: budget_units }
 
-      response = post_request("projects", body: attributes.merge(params))
+      response = post_request("projects", body: { project: attributes.merge(params) })
       Project.new(response.body["project"]) if response.success?
     end
 
     def update(id:, **params)
-      response = put_request("projects/#{id}", body: params)
+      response = put_request("projects/#{id}", body: { project: params })
       Project.new(response.body["project"]) if response.success?
     end
 

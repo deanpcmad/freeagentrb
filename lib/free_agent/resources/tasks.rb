@@ -15,15 +15,16 @@ module FreeAgent
       Task.new(response.body["task"])
     end
 
-    def create(project:, name:,  **params)
-      attributes = { project: project, name: name }
+    def create(project:, name:, **params)
+      attributes = { name: name }
 
-      response = post_request("tasks", body: attributes.merge(params))
+      # The project is passed in the query string rather than the payload
+      response = post_request("tasks?project=#{project}", body: { task: attributes.merge(params) })
       Task.new(response.body["task"]) if response.success?
     end
 
     def update(id:, **params)
-      response = put_request("tasks/#{id}", body: params)
+      response = put_request("tasks/#{id}", body: { task: params })
       Task.new(response.body["task"]) if response.success?
     end
 

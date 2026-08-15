@@ -44,7 +44,7 @@ class BillsResourceTest < Minitest::Test
 
     bill = client.bills.retrieve(id: 1)
 
-    assert_equal "100.0", bill.total_value
+    assert_equal 100.0, bill.total_value
     assert_equal "Stationery", bill.bill_items.first.description
   end
 

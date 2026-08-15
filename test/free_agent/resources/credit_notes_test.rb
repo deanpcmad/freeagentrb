@@ -22,7 +22,7 @@ class CreditNotesResourceTest < Minitest::Test
 
     assert_equal FreeAgent::Collection, credit_notes.class
     assert_equal FreeAgent::CreditNote, credit_notes.first.class
-    assert_equal "-200.0", credit_notes.first.total_value
+    assert_equal(-200.0, credit_notes.first.total_value)
   end
 
   def test_retrieve
