@@ -79,6 +79,75 @@ This library includes the ability to create, refresh and revoke OAuth tokens.
 @oauth.refresh(refresh_token: "abc123")
 ```
 
+### Accountancy Practice API
+
+If you've authenticated as an accountancy practice, you can list the clients
+your practice has access to and make requests on their behalf. See
+[the FreeAgent docs](https://dev.freeagent.com/docs/accountancy_practice_api)
+for more info.
+
+These endpoints are only available to practice-level access tokens. If each of
+your users connected their own FreeAgent account via OAuth, you don't need any
+of this — their token is already scoped to their company.
+
+#### Practice details
+
+```ruby
+@client.practice.retrieve
+# => #<FreeAgent::Practice name="My Practice", subdomain="mypracticesubdomain">
+```
+
+#### Clients
+
+```ruby
+@client.clients.list
+@client.clients.list(view: "active")
+@client.clients.list(sort: "-created_at")
+@client.clients.list(updated_since: "2026-01-01T00:00:00Z")
+
+# Fetch only the id, name and subdomain, up to 500 per page
+@client.clients.list(minimal_data: true, per_page: 500)
+```
+
+`view` accepts `all`, `active`, `inactive`, `closed`, `practice`, `linked`,
+`copilot` and `demo`. `sort` accepts `created_at` and `updated_at`, prefixed
+with `-` for descending order. `from_date` and `to_date` are also supported.
+
+#### Account managers
+
+```ruby
+@client.account_managers.list
+@client.account_managers.retrieve(id: "123")
+```
+
+#### Making requests on behalf of a client
+
+Requests are scoped to one of your clients by sending its subdomain in the
+`X-Subdomain` header. Set it when building the client:
+
+```ruby
+@client = FreeAgent::Client.new(access_token: "", subdomain: "testcompany")
+
+# Every request is now made against that client's account
+@client.invoices.list
+@client.contacts.list
+```
+
+Or derive a scoped client from your practice-level one, which is handy when
+iterating over several clients:
+
+```ruby
+@practice = FreeAgent::Client.new(access_token: "")
+
+@practice.clients.list(minimal_data: true).each do |client|
+  @practice.on_behalf_of(client.subdomain).invoices.list
+end
+```
+
+`on_behalf_of` returns a new client and leaves the original untouched, so the
+practice-level client can still be used for `clients`, `account_managers` and
+`practice`.
+
 ### Bank Accounts
 
 ```ruby
