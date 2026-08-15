@@ -186,6 +186,26 @@ module FreeAgent
       FinalAccountsReportsResource.new(self)
     end
 
+    def vat_returns
+      VatReturnsResource.new(self)
+    end
+
+    def corporation_tax_returns
+      CorporationTaxReturnsResource.new(self)
+    end
+
+    def self_assessment_returns
+      SelfAssessmentReturnsResource.new(self)
+    end
+
+    def sales_tax_periods
+      SalesTaxPeriodsResource.new(self)
+    end
+
+    def cis_bands
+      CisBandsResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

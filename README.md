@@ -498,6 +498,63 @@ Reports are identified by the date their accounting period ends, not by an id.
 @client.final_accounts_reports.mark_as_unfiled period_ends_on: "2026-03-31"
 ```
 
+### VAT Returns
+
+Read-only, and identified by the date their period ends. Payments are marked
+paid individually.
+
+```ruby
+@client.vat_returns.list
+@client.vat_returns.retrieve period_ends_on: "2026-03-31"
+@client.vat_returns.mark_as_filed period_ends_on: "2026-03-31"
+@client.vat_returns.mark_as_unfiled period_ends_on: "2026-03-31"
+@client.vat_returns.mark_payment_as_paid period_ends_on: "2026-03-31", payment_id: "12345"
+@client.vat_returns.mark_payment_as_unpaid period_ends_on: "2026-03-31", payment_id: "12345"
+```
+
+### Corporation Tax Returns
+
+```ruby
+@client.corporation_tax_returns.list
+@client.corporation_tax_returns.retrieve period_ends_on: "2026-03-31"
+@client.corporation_tax_returns.mark_as_filed period_ends_on: "2026-03-31"
+@client.corporation_tax_returns.mark_as_unfiled period_ends_on: "2026-03-31"
+@client.corporation_tax_returns.mark_as_paid period_ends_on: "2026-03-31"
+@client.corporation_tax_returns.mark_as_unpaid period_ends_on: "2026-03-31"
+```
+
+### Self Assessment Returns
+
+Nested under a user. The Income Tax Returns docs page describes these same
+endpoints.
+
+```ruby
+@client.self_assessment_returns.list user_id: "12345"
+@client.self_assessment_returns.retrieve user_id: "12345", period_ends_on: "2026-04-05"
+@client.self_assessment_returns.mark_as_filed user_id: "12345", period_ends_on: "2026-04-05"
+@client.self_assessment_returns.mark_as_unfiled user_id: "12345", period_ends_on: "2026-04-05"
+@client.self_assessment_returns.mark_as_paid user_id: "12345", period_ends_on: "2026-04-05"
+@client.self_assessment_returns.mark_as_unpaid user_id: "12345", period_ends_on: "2026-04-05"
+```
+
+### Sales Tax Periods
+
+US and Universal companies only.
+
+```ruby
+@client.sales_tax_periods.list
+@client.sales_tax_periods.retrieve(id: "12345")
+@client.sales_tax_periods.create starts_on: "2026-01-01", first_rate: "20.0"
+@client.sales_tax_periods.update id: "12345", first_rate: "17.5"
+@client.sales_tax_periods.delete id: "12345"
+```
+
+### CIS Bands
+
+```ruby
+@client.cis_bands.list
+```
+
 ### Attachments
 
 ```ruby

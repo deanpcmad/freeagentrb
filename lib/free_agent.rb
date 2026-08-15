@@ -59,6 +59,11 @@ module FreeAgent
   autoload :TrialBalanceResource, "free_agent/resources/trial_balance"
   autoload :CashflowResource, "free_agent/resources/cashflow"
   autoload :FinalAccountsReportsResource, "free_agent/resources/final_accounts_reports"
+  autoload :VatReturnsResource, "free_agent/resources/vat_returns"
+  autoload :CorporationTaxReturnsResource, "free_agent/resources/corporation_tax_returns"
+  autoload :SelfAssessmentReturnsResource, "free_agent/resources/self_assessment_returns"
+  autoload :SalesTaxPeriodsResource, "free_agent/resources/sales_tax_periods"
+  autoload :CisBandsResource, "free_agent/resources/cis_bands"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -97,4 +102,9 @@ module FreeAgent
   autoload :TrialBalanceItem, "free_agent/objects/trial_balance_item"
   autoload :CashflowItem, "free_agent/objects/cashflow_item"
   autoload :FinalAccountsReport, "free_agent/objects/final_accounts_report"
+  autoload :VatReturn, "free_agent/objects/vat_return"
+  autoload :CorporationTaxReturn, "free_agent/objects/corporation_tax_return"
+  autoload :SelfAssessmentReturn, "free_agent/objects/self_assessment_return"
+  autoload :SalesTaxPeriod, "free_agent/objects/sales_tax_period"
+  autoload :CisBand, "free_agent/objects/cis_band"
 end
