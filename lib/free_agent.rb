@@ -37,6 +37,7 @@ module FreeAgent
   autoload :CreditNotesResource, "free_agent/resources/credit_notes"
   autoload :BillsResource, "free_agent/resources/bills"
   autoload :CategoriesResource, "free_agent/resources/categories"
+  autoload :ExpensesResource, "free_agent/resources/expenses"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -54,4 +55,5 @@ module FreeAgent
   autoload :CreditNote, "free_agent/objects/credit_note"
   autoload :Bill, "free_agent/objects/bill"
   autoload :Category, "free_agent/objects/category"
+  autoload :Expense, "free_agent/objects/expense"
 end
