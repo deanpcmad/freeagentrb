@@ -555,6 +555,37 @@ US and Universal companies only.
 @client.cis_bands.list
 ```
 
+### Payroll
+
+Organised by tax year, then by period within that year. Read-only apart from
+the payment transitions.
+
+```ruby
+@client.payroll.list year: 2026
+@client.payroll.retrieve year: 2026, period: 1
+@client.payroll.mark_payment_as_paid year: 2026, period: 1
+@client.payroll.mark_payment_as_unpaid year: 2026, period: 1
+```
+
+### Payroll Profiles
+
+```ruby
+@client.payroll_profiles.list year: 2026
+@client.payroll_profiles.list year: 2026, user: "https://api.freeagent.com/v2/users/1"
+```
+
+### Properties
+
+`UkUnincorporatedLandlord` companies only.
+
+```ruby
+@client.properties.list
+@client.properties.retrieve(id: "12345")
+@client.properties.create name: "12 High Street"
+@client.properties.update id: "12345", name: "14 High Street"
+@client.properties.delete id: "12345"
+```
+
 ### Attachments
 
 ```ruby

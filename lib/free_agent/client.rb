@@ -206,6 +206,18 @@ module FreeAgent
       CisBandsResource.new(self)
     end
 
+    def payroll
+      PayrollResource.new(self)
+    end
+
+    def payroll_profiles
+      PayrollProfilesResource.new(self)
+    end
+
+    def properties
+      PropertiesResource.new(self)
+    end
+
     def connection
       url = (sandbox == true ? SANDBOX_BASE_URL : BASE_URL)
       @connection ||= Faraday.new(url) do |conn|

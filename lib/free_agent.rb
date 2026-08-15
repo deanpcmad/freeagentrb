@@ -64,6 +64,9 @@ module FreeAgent
   autoload :SelfAssessmentReturnsResource, "free_agent/resources/self_assessment_returns"
   autoload :SalesTaxPeriodsResource, "free_agent/resources/sales_tax_periods"
   autoload :CisBandsResource, "free_agent/resources/cis_bands"
+  autoload :PayrollResource, "free_agent/resources/payroll"
+  autoload :PayrollProfilesResource, "free_agent/resources/payroll_profiles"
+  autoload :PropertiesResource, "free_agent/resources/properties"
 
   autoload :Company, "free_agent/objects/company"
   autoload :Contact, "free_agent/objects/contact"
@@ -107,4 +110,7 @@ module FreeAgent
   autoload :SelfAssessmentReturn, "free_agent/objects/self_assessment_return"
   autoload :SalesTaxPeriod, "free_agent/objects/sales_tax_period"
   autoload :CisBand, "free_agent/objects/cis_band"
+  autoload :PayrollPeriod, "free_agent/objects/payroll_period"
+  autoload :PayrollProfile, "free_agent/objects/payroll_profile"
+  autoload :Property, "free_agent/objects/property"
 end
