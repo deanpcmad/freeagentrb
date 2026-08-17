@@ -44,7 +44,9 @@ GEM
     language_server-protocol (3.17.0.6)
     lint_roller (1.1.0)
     logger (1.7.0)
-    minitest (5.27.0)
+    minitest (6.0.6)
+      drb (~> 2.0)
+      prism (~> 1.5)
     multipart-post (2.4.1)
     net-http (0.9.1)
       uri (>= 0.11.1)
@@ -104,7 +106,7 @@ DEPENDENCIES
   cgi
   dotenv
   freeagentrb!
-  minitest (~> 5.0)
+  minitest (~> 6.0)
   rake (~> 13.0)
   rubocop-rails-omakase
   vcr
